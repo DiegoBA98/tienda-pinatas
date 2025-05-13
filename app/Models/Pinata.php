@@ -33,11 +33,6 @@ class Pinata extends Model
         return $this->imagen ? asset('storage/' . $this->imagen) : null;
     }
 
-    public function getTagsAttribute($value)
-    {
-        return json_decode($value, true);
-    }
-
     public function asignarTags(array $tags)
     {
         $this->tags = $tags;
