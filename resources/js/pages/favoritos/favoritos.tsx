@@ -100,7 +100,7 @@ export default function Favoritos({ pinatas }: { pinatas: PinatasType }) {
                             <div>
                                 <div className="w-full h-80 md:h-72 overflow-hidden">
                                     <img
-                                        src={`/img/pinatas/${pinata.imagen}`}
+                                        src={`/storage/${pinata.imagen}`}
                                         alt={pinata.nombre}
                                         className="w-full h-full object-cover hover:cursor-pointer"
                                         onClick={() => openModal(pinata)}
