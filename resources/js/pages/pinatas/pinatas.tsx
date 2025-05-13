@@ -11,6 +11,7 @@ import { motion } from "framer-motion";
 import ModalContainer from "@/components/ui/modalContainer";
 import ButtonHeart from "@/components/buttonHeart";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
+import CardPinata from "@/components/cardPinata";
 
 interface PinatasProps {
     categories: Category[];
@@ -20,6 +21,9 @@ interface PinatasProps {
 }
 
 export default function Pinatas({ pinatas, categories, search, category }: PinatasProps) {
+    const page = usePage<SharedData>();
+    const { auth } = page.props;
+
     const [searchTerm, setSearchTerm] = useState(search || "");
     const [selectedCategory, setSelectedCategory] = useState(category || "");
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -62,32 +66,29 @@ export default function Pinatas({ pinatas, categories, search, category }: Pinat
         router.visit('/pinatas?page=1');
     }
 
-    const page = usePage<SharedData>();
-    const { auth } = page.props;
-
-    const toogleLikePinata = (pinata: Pinata) => {
-        if (auth.user) {
-            if (pinata.is_favorite) {
-                router.delete(`/pinatas/favorites/${pinata.id}`, {
-                    preserveScroll: true,
-                    onSuccess: () => {
-                        pinata.is_favorite = false;
-                    },
-                });
-            } else {
-                router.post('/pinatas/favorites', { pinata_id: pinata.id }, {
-                    preserveScroll: true,
-                    onSuccess: () => {
-                        pinata.is_favorite = true;
-                    },
-                });
-            }
-        } else {
-            setIsModalVisible(true);
-            setNameModal('NoLogin');
-            closeModal();
-        }
-    };
+    // const toogleLikePinata = (pinata: Pinata) => {
+    //     if (auth.user) {
+    //         if (pinata.is_favorite) {
+    //             router.delete(`/pinatas/favorites/${pinata.id}`, {
+    //                 preserveScroll: true,
+    //                 onSuccess: () => {
+    //                     pinata.is_favorite = false;
+    //                 },
+    //             });
+    //         } else {
+    //             router.post('/pinatas/favorites', { pinata_id: pinata.id }, {
+    //                 preserveScroll: true,
+    //                 onSuccess: () => {
+    //                     pinata.is_favorite = true;
+    //                 },
+    //             });
+    //         }
+    //     } else {
+    //         setIsModalVisible(true);
+    //         setNameModal('NoLogin');
+    //         closeModal();
+    //     }
+    // };
 
     const breadcrumbs: BreadcrumbItem[] = [
         {
@@ -127,10 +128,33 @@ export default function Pinatas({ pinatas, categories, search, category }: Pinat
 
         const newQuery = params.toString();
         if (window.location.search !== `?${newQuery}`) {
-            router.visit(`/pinatas?${newQuery}`, { preserveState: true });
+            router.visit(`/pinatas?${newQuery}`, { preserveState: true, preserveScroll: true });
         }
     }, [searchTerm, selectedCategory, entregaInmediata, isInitialLoad]);
 
+    const toogleLikePinata = (pinata: Pinata) => {
+        if (auth.user) {
+            if (pinata.is_favorite) {
+                router.delete(`/pinatas/favorites/${pinata.id}`, {
+                    preserveScroll: true,
+                    // onSuccess: () => {
+                    //     pinata.is_favorite = false;
+                    // },
+                });
+            } else {
+                router.post('/pinatas/favorites', { pinata_id: pinata.id }, {
+                    preserveScroll: true,
+                    // onSuccess: () => {
+                    //     pinata.is_favorite = true;
+                    // },
+                });
+            }
+        } else {
+            setIsModalVisible(true);
+            setNameModal('NoLogin');
+            closeModal();
+        }
+    };
 
     return (
         <AppLayoutTemplate breadcrumbs={breadcrumbs}>
@@ -249,54 +273,17 @@ export default function Pinatas({ pinatas, categories, search, category }: Pinat
 
                 {/* piñatas */}
                 <motion.div
-                    className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8 mb-6 mt-2"
+                    className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-10 mb-6 mt-2"
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     transition={{ duration: 0.5, ease: "easeInOut", delay: 0.4 }}
                 >
-                    {pinatas.data.map((pinata, index) => (
-                        <motion.div
-                            key={pinata.id}
-                            className="bg-white rounded-lg shadow-lg overflow-hidden transform flex flex-col justify-between hover:scale-[101%] transition duration-500"
-                            initial={{ opacity: 0.4, y: 10 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.1, delay: index * 0.1, ease: "easeInOut" }}
-                        >
-                            <div>
-                                <div className="w-full h-80 md:h-72 overflow-hidden">
-                                    <img
-                                        src={`/img/${pinata.imagen}`}
-                                        alt={pinata.nombre}
-                                        className="w-full h-full object-cover"
-                                        onClick={() => openModal(pinata)}
-                                    />
-                                </div>
-                                <div className="p-4">
-                                    <h3 className="text-lg font-semibold text-gray-800">{pinata.nombre}</h3>
-                                    <p className="text-gray-600 text-sm">{pinata.descripcion}</p>
-                                </div>
-                            </div>
-                            <div>
-                                <div className="flex justify-between items-center px-4">
-                                    <span className="text-sm text-gray-500">Precio:</span>
-                                    <span className="text-lg font-bold text-pink-600">
-                                        {formatCurrency(+pinata.precio)}
-                                    </span>
-                                </div>
-                                <div className="flex justify-between items-center mt-2 px-4 pb-4">
-                                    <a
-                                        href={`https://api.whatsapp.com/send/?phone=${import.meta.env.VITE_TELEFONO_WHAT}&text=Hola+me+interesa+la+pinata+${import.meta.env.VITE_APP_URL}/pinatas/${pinata.id}&type=phone_number&app_absent=0`}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="flex items-center gap-2 px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
-                                    >
-                                        Me interesa
-                                        <MessageCircle className="w-5 h-5" />
-                                    </a>
-                                    <ButtonHeart pinata={pinata} toogleLikePinata={toogleLikePinata} />
-                                </div>
-                            </div>
-                        </motion.div>
+                    {pinatas.data.map((pinata) => (
+                        <CardPinata
+                            pinata={pinata}
+                            openModal={openModal}
+                            toogleLikePinata={toogleLikePinata}
+                        />
                     ))}
                 </motion.div>
 
@@ -309,7 +296,7 @@ export default function Pinatas({ pinatas, categories, search, category }: Pinat
                                 <div>
                                     <div className="h-96 overflow-hidden mb-2 flex justify-center">
                                         <img
-                                            src={`/img/${selectedPinata.imagen}`}
+                                            src={`/img/pinatas/${selectedPinata.imagen}`}
                                             alt={selectedPinata.nombre}
                                             className="h-[100%] object-cover"
                                         />

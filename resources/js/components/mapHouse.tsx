@@ -22,7 +22,7 @@ export default function MapHouse() {
                     <MapContainer
                         center={[20.527717, -103.240337]}
                         zoom={13}
-                        style={{ height: '100%', width: '100%', zIndex: -10 }}
+                        style={{ height: '100%', width: '100%', zIndex: 2 }}
                     >
                         <TileLayer
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

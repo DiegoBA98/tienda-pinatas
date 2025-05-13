@@ -15,6 +15,8 @@ import { useState } from "react";
 import 'leaflet/dist/leaflet.css';
 import MapHouse from "@/components/mapHouse";
 import ButtonHeart from "@/components/buttonHeart";
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
+import CardPinata from "@/components/cardPinata";
 
 type HomePageProps = {
     pinatasInmediatas: Pinata[];
@@ -34,26 +36,38 @@ export default function HomePage({ pinatasInmediatas, pinatasNoInmediatas }: Hom
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [nameModal, setNameModal] = useState('');
 
+    const [modalOpen, setModalOpen] = useState(false);
+    const [selectedPinata, setSelectedPinata] = useState<null | Pinata>(null);
+    const openModal = (pinata: Pinata) => {
+        setSelectedPinata(pinata);
+        setModalOpen(true);
+    };
+    const closeModal = () => {
+        setModalOpen(false);
+        setSelectedPinata(null);
+    };
+
     const toogleLikePinata = (pinata: Pinata) => {
         if (auth.user) {
             if (pinata.is_favorite) {
                 router.delete(`/pinatas/favorites/${pinata.id}`, {
                     preserveScroll: true,
-                    onSuccess: () => {
-                        pinata.is_favorite = false;
-                    },
+                    // onSuccess: () => {
+                    //     pinata.is_favorite = false;
+                    // },
                 });
             } else {
                 router.post('/pinatas/favorites', { pinata_id: pinata.id }, {
                     preserveScroll: true,
-                    onSuccess: () => {
-                        pinata.is_favorite = true;
-                    },
+                    // onSuccess: () => {
+                    //     pinata.is_favorite = true;
+                    // },
                 });
             }
         } else {
             setIsModalVisible(true);
             setNameModal('NoLogin');
+            closeModal();
         }
     };
 
@@ -153,10 +167,10 @@ export default function HomePage({ pinatasInmediatas, pinatasNoInmediatas }: Hom
                             transition={{ duration: 0.4, delay: 0.5 }}
                         >
                             <Swiper
-                                spaceBetween={20}
+                                spaceBetween={30}
                                 loop={true}
                                 autoplay={{
-                                    delay: 5000,
+                                    delay: 7000,
                                     disableOnInteraction: false,
                                     pauseOnMouseEnter: true
                                 }}
@@ -183,67 +197,7 @@ export default function HomePage({ pinatasInmediatas, pinatasNoInmediatas }: Hom
                             >
                                 {pinatasInmediatas.map((pinata) => (
                                     <SwiperSlide key={pinata.id}>
-                                        <div
-                                            key={pinata.id}
-                                            className="bg-white rounded-lg overflow-hidden transform flex flex-col justify-between transition duration-500 h-[490px] md:h-[510px] xl:h-[490px]"
-                                        >
-
-                                            <div>
-                                                <div className="w-full h-80 md:h-72 overflow-hidden">
-                                                    <img
-                                                        src={`/img/${pinata.imagen}`}
-                                                        alt={pinata.nombre}
-                                                        className="w-full h-full object-cover"
-                                                    />
-                                                </div>
-                                                <div className="p-2">
-                                                    <h3 className="text-lg font-semibold text-gray-800">{pinata.nombre}</h3>
-                                                    <p className="text-gray-600 text-sm line-clamp-3">{pinata.descripcion}</p>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div className="flex justify-between items-center px-4">
-                                                    <span className="text-sm text-gray-500">Precio:</span>
-                                                    <span className="text-lg font-bold text-pink-600">
-                                                        {formatCurrency(+pinata.precio)}
-                                                    </span>
-                                                </div>
-                                                <div className="flex justify-between items-center mt-2 px-4 pb-4">
-                                                    <a
-                                                        href={`https://api.whatsapp.com/send/?phone=${import.meta.env.VITE_TELEFONO_WHAT}&text=Hola+me+interesa+la+pinata+${import.meta.env.VITE_APP_URL}/pinatas/${pinata.id}&type=phone_number&app_absent=0`}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="flex items-center gap-2 px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
-                                                    >
-                                                        Me interesa
-                                                        <MessageCircle className="w-5 h-5" />
-                                                    </a>
-                                                    <ButtonHeart pinata={pinata} toogleLikePinata={toogleLikePinata} />
-                                                    {/* <button
-                                                        className="flex items-center gap-2 px-4 py-2 text-black rounded hover:cursor-pointer hover:scale-110 transition"
-                                                        onClick={() => {
-                                                            toogleLikePinata(pinata);
-                                                        }}
-                                                    >
-                                                        <motion.div
-                                                            initial={{ scale: 1 }}
-                                                            animate={{
-                                                                scale: pinata.is_favorite ? 1.3 : 1,
-                                                                transition: { duration: 0.3, ease: "easeInOut" },
-                                                            }}
-                                                            whileTap={{
-                                                                rotate: [0, -30, 30, -30, 30, 0],
-                                                                transition: { duration: 0.5, ease: "easeInOut" },
-                                                            }}
-                                                        >
-                                                            <Heart
-                                                                className={`size-7 ${pinata.is_favorite ? 'fill-red-500' : ''} `}
-                                                            />
-                                                        </motion.div>
-                                                    </button> */}
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <CardPinata pinata={pinata} openModal={openModal} toogleLikePinata={toogleLikePinata} />
                                     </SwiperSlide>
                                 ))}
                             </Swiper>
@@ -292,10 +246,10 @@ export default function HomePage({ pinatasInmediatas, pinatasNoInmediatas }: Hom
                             transition={{ duration: 0.4, delay: 0.5 }}
                         >
                             <Swiper
-                                spaceBetween={20}
+                                spaceBetween={30}
                                 loop={true}
                                 autoplay={{
-                                    delay: 5000,
+                                    delay: 7000,
                                     disableOnInteraction: false,
                                     pauseOnMouseEnter: true
                                 }}
@@ -322,45 +276,7 @@ export default function HomePage({ pinatasInmediatas, pinatasNoInmediatas }: Hom
                             >
                                 {pinatasNoInmediatas.map((pinata) => (
                                     <SwiperSlide key={pinata.id}>
-                                        <div
-                                            key={pinata.id}
-                                            className="bg-white rounded-lg overflow-hidden transform flex flex-col justify-between hover:scale-[101%] transition duration-500 h-[490px] md:h-[510px]  xl:h-[490px]"
-                                        >
-
-                                            <div>
-                                                <div className="w-full h-80 md:h-72 overflow-hidden">
-                                                    <img
-                                                        src={`/img/${pinata.imagen}`}
-                                                        alt={pinata.nombre}
-                                                        className="w-full h-full object-cover"
-                                                    />
-                                                </div>
-                                                <div className="p-2">
-                                                    <h3 className="text-lg font-semibold text-gray-800">{pinata.nombre}</h3>
-                                                    <p className="text-gray-600 text-sm line-clamp-3">{pinata.descripcion}</p>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div className="flex justify-between items-center px-4">
-                                                    <span className="text-sm text-gray-500">Precio:</span>
-                                                    <span className="text-lg font-bold text-pink-600">
-                                                        {formatCurrency(+pinata.precio)}
-                                                    </span>
-                                                </div>
-                                                <div className="flex justify-between items-center mt-2 px-4 pb-4">
-                                                    <a
-                                                        href={`https://api.whatsapp.com/send/?phone=${import.meta.env.VITE_TELEFONO_WHAT}&text=Hola+me+interesa+la+pinata+${import.meta.env.VITE_APP_URL}/pinatas/${pinata.id}&type=phone_number&app_absent=0`}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="flex items-center gap-2 px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
-                                                    >
-                                                        Me interesa
-                                                        <MessageCircle className="w-5 h-5" />
-                                                    </a>
-                                                    <ButtonHeart pinata={pinata} toogleLikePinata={toogleLikePinata} />
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <CardPinata pinata={pinata} openModal={openModal} toogleLikePinata={toogleLikePinata} />
                                     </SwiperSlide>
                                 ))}
                             </Swiper>
@@ -452,7 +368,44 @@ export default function HomePage({ pinatasInmediatas, pinatasNoInmediatas }: Hom
 
                 {/* Mapa */}
                 <MapHouse />
-                {/* Modal */}
+                {/* Modal ver piñata */}
+                {modalOpen && selectedPinata && (
+                    <Dialog open={modalOpen} onOpenChange={closeModal}>
+                        <DialogContent>
+                            <DialogTitle>{selectedPinata.nombre}</DialogTitle>
+                            <DialogDescription asChild>
+                                <div>
+                                    <div className="h-96 overflow-hidden mb-2 flex justify-center">
+                                        <img
+                                            src={`/img/pinatas/${selectedPinata.imagen}`}
+                                            alt={selectedPinata.nombre}
+                                            className="h-[100%] object-cover"
+                                        />
+                                    </div>
+                                    <div>{selectedPinata.descripcion}</div>
+                                    <div className="mt-4">
+                                        <span className="text-lg font-bold text-pink-600">
+                                            {formatCurrency(+selectedPinata.precio)}
+                                        </span>
+                                    </div>
+                                    <div className="mt-2 flex justify-between">
+                                        <a
+                                            href={`https://api.whatsapp.com/send/?phone=${import.meta.env.VITE_TELEFONO_WHAT}&text=Hola+me+interesa+la+pinata+${import.meta.env.VITE_APP_URL}/pinatas/${selectedPinata.id}&type=phone_number&app_absent=0`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex items-center gap-2 px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
+                                        >
+                                            Me interesa
+                                            <MessageCircle className="w-5 h-5" />
+                                        </a>
+                                        <ButtonHeart pinata={selectedPinata} toogleLikePinata={toogleLikePinata} />
+                                    </div>
+                                </div>
+                            </DialogDescription>
+                        </DialogContent>
+                    </Dialog>
+                )}
+                {/* modal aviso login */}
                 <ModalContainer isModalVisible={isModalVisible} nameModal={nameModal} setIsModalVisible={setIsModalVisible} />
             </AppLayoutTemplate>
         </>

@@ -7,6 +7,10 @@ import { formatCurrency } from '@/utils';
 import { Head, router, usePage } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import { MessageCircle, Star } from 'lucide-react';
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
+import { useState } from 'react';
+
+
 
 export default function Favoritos({ pinatas }: { pinatas: PinatasType }) {
     const page = usePage<SharedData>();
@@ -37,6 +41,17 @@ export default function Favoritos({ pinatas }: { pinatas: PinatasType }) {
                 });
             }
         }
+    };
+
+    const [modalOpen, setModalOpen] = useState(false);
+    const [selectedPinata, setSelectedPinata] = useState<null | Pinata>(null);
+    const openModal = (pinata: Pinata) => {
+        setSelectedPinata(pinata);
+        setModalOpen(true);
+    };
+    const closeModal = () => {
+        setModalOpen(false);
+        setSelectedPinata(null);
     };
 
     return (
@@ -85,9 +100,10 @@ export default function Favoritos({ pinatas }: { pinatas: PinatasType }) {
                             <div>
                                 <div className="w-full h-80 md:h-72 overflow-hidden">
                                     <img
-                                        src={`/img/${pinata.imagen}`}
+                                        src={`/img/pinatas/${pinata.imagen}`}
                                         alt={pinata.nombre}
-                                        className="w-full h-full object-cover"
+                                        className="w-full h-full object-cover hover:cursor-pointer"
+                                        onClick={() => openModal(pinata)}
                                     />
                                 </div>
                                 <div className="p-4">
@@ -121,6 +137,42 @@ export default function Favoritos({ pinatas }: { pinatas: PinatasType }) {
                 </motion.div>
             </motion.div>
             <Pagination pinatas={pinatas} />
+            {modalOpen && selectedPinata && (
+                    <Dialog open={modalOpen} onOpenChange={closeModal}>
+                        <DialogContent>
+                            <DialogTitle>{selectedPinata.nombre}</DialogTitle>
+                            <DialogDescription asChild>
+                                <div>
+                                    <div className="h-96 overflow-hidden mb-2 flex justify-center">
+                                        <img
+                                            src={`/img/pinatas/${selectedPinata.imagen}`}
+                                            alt={selectedPinata.nombre}
+                                            className="h-[100%] object-cover"
+                                        />
+                                    </div>
+                                    <div>{selectedPinata.descripcion}</div>
+                                    <div className="mt-4">
+                                        <span className="text-lg font-bold text-pink-600">
+                                            {formatCurrency(+selectedPinata.precio)}
+                                        </span>
+                                    </div>
+                                    <div className="mt-2 flex justify-between">
+                                        <a
+                                            href={`https://api.whatsapp.com/send/?phone=${import.meta.env.VITE_TELEFONO_WHAT}&text=Hola+me+interesa+la+pinata+${import.meta.env.VITE_APP_URL}/pinatas/${selectedPinata.id}&type=phone_number&app_absent=0`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex items-center gap-2 px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
+                                        >
+                                            Me interesa
+                                            <MessageCircle className="w-5 h-5" />
+                                        </a>
+                                        <ButtonHeart pinata={selectedPinata} toogleLikePinata={toogleLikePinata} />
+                                    </div>
+                                </div>
+                            </DialogDescription>
+                        </DialogContent>
+                    </Dialog>
+                )}
         </AppLayoutTemplate>
     );
 }
