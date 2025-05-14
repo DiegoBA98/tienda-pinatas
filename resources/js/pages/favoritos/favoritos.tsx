@@ -145,7 +145,7 @@ export default function Favoritos({ pinatas }: { pinatas: PinatasType }) {
                                 <div>
                                     <div className="h-96 overflow-hidden mb-2 flex justify-center">
                                         <img
-                                            src={`/img/pinatas/${selectedPinata.imagen}`}
+                                            src={`/storage/${selectedPinata.imagen}`}
                                             alt={selectedPinata.nombre}
                                             className="h-[100%] object-cover"
                                         />
