@@ -5,7 +5,7 @@ import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 export default function MapHouse() {
     return (
         <motion.section
-            className="px-2 md:px-4 mb-10"
+            className="px-4 mb-10"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.5 }}
@@ -18,7 +18,7 @@ export default function MapHouse() {
                     <a href="https://maps.app.goo.gl/mVYgcBuihi8nL3aM9?g_st=aw" target="_blank"
                         rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium outline-none focus-visible:border-ring focus-visible:ring-ring/50 bg-black h-9 px-8 py-3 mt-2 md:mt-0 mb-2 md:mb-0 text-white hover:bg-black/80">Abrir en Maps <MapPin className="size-5" /> </a>
                 </div>
-                <div style={{ height: '450px', width: '100%' }}>
+                <div className='h-[380px] md:h-[450px] w-[100%]'>
                     <MapContainer
                         center={[20.527717, -103.240337]}
                         zoom={13}

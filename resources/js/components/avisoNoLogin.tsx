@@ -2,7 +2,7 @@ import { Link } from "@inertiajs/react";
 
 export default function AvisoNoLogin() {
   return (
-    <div className="max-w-md mx-auto rounded-lg text-center py-2 md:py-0  px-4 md:px-0">
+    <div className="max-w-md mx-auto rounded-lg text-center md:py-0 px-4 md:px-0">
       <h2 className="text-2xl font-bold text-gray-800 mb-4">
         Inicia sesión para disfrutar más
       </h2>

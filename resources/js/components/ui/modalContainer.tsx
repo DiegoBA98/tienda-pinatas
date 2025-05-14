@@ -1,7 +1,6 @@
-import React, { Fragment } from 'react';
-import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react';
+import React from 'react';
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
 import AvisoNoLogin from '../avisoNoLogin';
-import { X } from 'lucide-react';
 
 type ModalContainerProps = {
     setIsModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
@@ -30,8 +29,8 @@ export default function ModalContainer({isModalVisible, setIsModalVisible, nameM
 
     return (
         <div>
-            <Transition appear show={isModalVisible} as={Fragment}>
-                <Dialog as="div" className="relative z-50" onClose={closeModal}>
+            {/* <Transition appear show={isModalVisible} as={Fragment}>
+                <Dialog className="relative z-50" onClose={closeModal}>
                     <TransitionChild
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -41,7 +40,7 @@ export default function ModalContainer({isModalVisible, setIsModalVisible, nameM
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div className="fixed inset-0 bg-black/70" />
+                        <div className="fixed inset-0  bg-black/70" />
                     </TransitionChild>
 
                     <div className="fixed inset-0 overflow-y-auto">
@@ -69,7 +68,18 @@ export default function ModalContainer({isModalVisible, setIsModalVisible, nameM
                         </div>
                     </div>
                 </Dialog>
-            </Transition>
+            </Transition> */}
+            <Dialog open={isModalVisible} onOpenChange={closeModal}>
+                <DialogContent aria-describedby='Iniciar Sesión'
+                >
+                    <DialogTitle>{' '}</DialogTitle>
+                    <DialogDescription asChild >
+                        <div>
+                            {componentToRender ? React.createElement(componentToRender, { closeModal }) : null}
+                        </div>
+                    </DialogDescription>
+                </DialogContent>
+            </Dialog>
         </div>
     );
 }

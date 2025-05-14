@@ -16,7 +16,6 @@ export default function ButtonHeart({ toogleLikePinata, pinata }: ButtonHeartPro
     const [isLiked, setIsLiked] = useState(pinata.is_favorite);
 
     const handleClick = () => {
-        console.log(auth.user)
         if(auth.user) setIsLiked(!isLiked);
         toogleLikePinata(pinata);
     };

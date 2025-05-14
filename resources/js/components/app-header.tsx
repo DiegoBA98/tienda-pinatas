@@ -11,7 +11,7 @@ import { useInitials } from '@/hooks/use-initials';
 import { cn } from '@/lib/utils';
 import { type BreadcrumbItem, type NavItem, type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { BookHeart, CircleHelp, Contact, House, KeyRound, Menu, PartyPopper, Users } from 'lucide-react';
+import { BookHeart, CircleHelp, Contact, House, KeyRound, Menu, PartyPopper, User, Users } from 'lucide-react';
 import AppLogo from './app-logo';
 import { Tooltip } from './ui/tooltip';
 import { TooltipContent, TooltipTrigger } from '@radix-ui/react-tooltip';
@@ -59,7 +59,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
 
     useEffect(() => {
         const handleScroll = () => {
-            if (window.scrollY > 50) {
+            if (window.scrollY > 100) {
                 setIsScrolled(true);
             } else {
                 setIsScrolled(false);
@@ -74,15 +74,18 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
 
     return (
         <>
-            <div
-                className={`border-sidebar-border/80 border-b bg-[#f58f9a] sticky top-0 z-50 transition-all duration-300`}
+             <div
+                className={`border-sidebar-border/80 border-b bg-[#f58f9a] sticky top-0 z-49 transition`}
             >
-                <div className={`mx-auto flex items-center px-4 md:max-w-7xl transition-all duration-300 ${isScrolled ? 'py-0' : 'py-2'}`}>
+                <div className={`mx-auto flex items-center px-4 md:max-w-7xl transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${isScrolled ? 'py-1' : 'py-2'}`}>
                     <div className="w-full flex justify-between">
-
                         {/* logo */}
                         <Link href="/dashboard" prefetch className="flex items-center">
-                            <img src="/logo.png" alt="Logo piñatas brillantes" className={`size-16 transition-all ${isScrolled ? 'scale-75' : 'scale-100'} duration-300`} />
+                            <img
+                                src="/logo.png"
+                                alt="Logo piñatas brillantes"
+                                className={`size-16 transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${isScrolled ? 'scale-90' : 'scale-100'}`}
+                            />
                         </Link>
 
                         {/* menu desktop */}
@@ -101,7 +104,9 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                                 prefetch
                                             >
                                                 {item.icon && <Icon iconNode={item.icon} className={`mr-2 h-4 w-4 transition-all ${isScrolled ? 'scale-75' : 'scale-100'} duration-300`} />}
-                                                <span className={`transition-all ${isScrolled ? 'text-xs' : 'text-base'} duration-300`}>{item.title}</span>
+                                                <span className={`transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${isScrolled ? 'text-sm' : 'text-base'}`}>
+                                                    {item.title}
+                                                </span>
                                             </Link>
                                             {page.url === item.href && (
                                                 <div className={`absolute ${isScrolled ? 'bottom-2' : 'bottom-0' }  left-0 h-0.5 w-full translate-y-px bg-black dark:bg-white`}></div>
@@ -113,7 +118,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                         </div>
 
                         {/* barra y autenticado */}
-                        <div className="flex">
+                        <div className="flex gap-6 md:gap-4">
                             {auth.user ? (
                                 <Tooltip>
                                 <TooltipTrigger>
@@ -152,7 +157,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                             {auth.user ? <UserMenuContent user={auth.user} /> : null}
                                         </DropdownMenuContent>
                                     </DropdownMenu>
-                                    : <Link href="/login" className='flex items-center group'>
+                                    : <Link href="/login" className='hidden lg:flex items-center group gap6'>
                                         <Icon iconNode={KeyRound} className="h-4 w-4 group-hover:underline" />
                                         <Button size={'sm'} variant={'link'} className='group-hover:underline px-1 hover:cursor-pointer'>
                                             Iniciar Sesión
@@ -165,8 +170,8 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                             <div className="flex items-center lg:hidden ">
                                 <Sheet>
                                     <SheetTrigger asChild>
-                                        <Button variant="ghost" size="icon" className=" h-[34px] w-[34px]">
-                                            <Menu className="h-5 w-5" />
+                                        <Button variant="ghost" size="icon" className=" h-[34px] w-[34px] hover:cursor-pointer">
+                                            <Menu className="size-8" />
                                         </Button>
                                     </SheetTrigger>
                                     <SheetContent side="right" className="bg-sidebar flex h-full w-64 flex-col items-stretch justify-between">
@@ -176,13 +181,17 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                         </SheetHeader>
                                         <div className="flex h-full flex-1 flex-col space-y-4 p-4">
                                             <div className="flex h-full flex-col justify-between text-sm">
-                                                <div className="flex flex-col space-y-4">
+                                                <div className="flex flex-col space-y-6">
                                                     {mainNavItems.map((item) => (
                                                         <Link key={item.title} href={item.href} className="flex items-center space-x-2 font-medium">
                                                             {item.icon && <Icon iconNode={item.icon} className="h-5 w-5" />}
                                                             <span>{item.title}</span>
                                                         </Link>
                                                     ))}
+                                                    <Link href={'/login'} className="flex items-center space-x-2 font-medium">
+                                                        <Icon iconNode={User} className="h-5 w-5" />
+                                                        <span>Iniciar Sesión</span>
+                                                    </Link>
                                                 </div>
                                             </div>
                                         </div>

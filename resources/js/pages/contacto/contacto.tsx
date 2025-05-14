@@ -32,10 +32,8 @@ export default function Contacto() {
         const data = await response.json();
 
         if (data.success) {
-            setResult("Email enviado");
             form.reset();
         } else {
-            console.log("Error", data);
             setResult(data.message);
         }
     };
