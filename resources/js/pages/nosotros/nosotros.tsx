@@ -29,7 +29,7 @@ export default function Nosotros() {
                     <motion.img
                         src="/img/nosotros2.jpg"
                         alt="Piñatas brillantes"
-                        className="w-48 md:w-52 object-cover rounded-md shadow-sm"
+                        className="w-46 md:w-52 object-cover rounded-md shadow-sm"
                         initial={{ scale: 0.8 }}
                         animate={{ scale: 1 }}
                         transition={{ duration: 0.4, ease: "easeInOut" }}
@@ -37,7 +37,7 @@ export default function Nosotros() {
                     <motion.img
                         src="/img/nosotros1.jpg"
                         alt="Nuestra pareja emprendedora"
-                        className="w-48 md:w-52 object-cover rounded-md shadow-sm"
+                        className="w-46 md:w-52 object-cover rounded-md shadow-sm"
                         initial={{ scale: 0.8 }}
                         animate={{ scale: 1 }}
                         transition={{ duration: 0.4, ease: "easeInOut", delay: 0.3 }}

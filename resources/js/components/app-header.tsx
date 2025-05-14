@@ -84,7 +84,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                             <img
                                 src="/logo.png"
                                 alt="Logo piñatas brillantes"
-                                className={`size-16 transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${isScrolled ? 'scale-90' : 'scale-100'}`}
+                                className={`size-12 lg:size-16 transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${isScrolled ? 'scale-90' : 'scale-100'}`}
                             />
                         </Link>
 
