@@ -49,7 +49,14 @@ class PinataResource extends Resource
                                 if (is_string($state)) {
                                     $set('tags', explode(',', $state));
                                 }
+                            })
+                            ->beforeSave(function ($state) {
+                                if (is_array($state)) {
+                                    return implode(',', $state);
+                                }
+                                return $state;
                             }),
+
                         Forms\Components\Select::make('category_id')
                             ->label('Categoria')
                             ->relationship('category', 'nombre')
