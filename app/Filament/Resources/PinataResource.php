@@ -13,6 +13,7 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\TagsInput;
 
 class PinataResource extends Resource
 {
@@ -42,21 +43,10 @@ class PinataResource extends Resource
                 ])->columns(2),
                 Forms\Components\Section::make('Tags y categoria')
                     ->schema([
-                        Forms\Components\TextInput::make('tags')
+                        TagsInput::make('tags')
                             ->required()
-                            ->helperText('Ingresar los tags de la piñata separados por comas y sin espacios')
-                            ->afterStateHydrated(function (callable $set, $state) {
-                                if (is_string($state)) {
-                                    $set('tags', explode(',', $state));
-                                }
-                            })
-                            ->beforeSave(function ($state) {
-                                if (is_array($state)) {
-                                    return implode(',', $state);
-                                }
-                                return $state;
-                            }),
-
+                            ->helperText('Ingresar los tags de la piñata separados por comas')
+                            ->separator(','),
                         Forms\Components\Select::make('category_id')
                             ->label('Categoria')
                             ->relationship('category', 'nombre')
