@@ -104,7 +104,7 @@ export default function Pinatas({ pinatas, categories, search, category }: Pinat
         const params = new URLSearchParams(url.search);
 
         if (searchTerm) {
-            if (searchTerm.length > 1) params.set('search', searchTerm);
+            if (searchTerm.length > 0) params.set('search', searchTerm);
         } else {
             params.delete('search');
         }
@@ -175,14 +175,14 @@ export default function Pinatas({ pinatas, categories, search, category }: Pinat
                 >
                     Piñatas
                 </motion.h1>
-                <motion.p
+                {/* <motion.p
                     className="text-center text-lg text-gray-700 mb-4"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, ease: "easeInOut", delay: 0.2 }}
                 >
                     En esta sección encontrarás una amplia variedad de piñatas. Explora nuestras opciones y elige la más adecuada para tu evento.
-                </motion.p>
+                </motion.p> */}
 
                 {/* Buscador input */}
                 <motion.div
@@ -241,7 +241,23 @@ export default function Pinatas({ pinatas, categories, search, category }: Pinat
                 >
                     Selecciona una opción para filtrar por alguna categoría
                 </motion.p>
-                <div className="flex justify-center gap-4 flex-wrap mb-6">
+                {/* Select para pantallas pequeñas */}
+                <div className="flex justify-center mb-6 md:hidden">
+                    <select
+                        className="border border-gray-300 rounded px-4 py-2 text-gray-700"
+                        value={selectedCategory}
+                        onChange={(e) => setSelectedCategory(e.target.value)}
+                    >
+                        <option value="">Todas las categorías</option>
+                        {categories.map((category) => (
+                            <option key={category.nombre} value={category.id.toString()}>
+                                {category.nombre}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                {/* Botones para pantallas medianas en adelante */}
+                <div className="hidden md:flex justify-center gap-4 flex-wrap mb-6">
                     {categories.map((category, index) => (
                         <motion.div
                             key={category.id}
@@ -261,6 +277,7 @@ export default function Pinatas({ pinatas, categories, search, category }: Pinat
                         </motion.div>
                     ))}
                 </div>
+
                 {/* Categoría seleccionada */}
                 {/* <motion.p
                     className="text-center mt-3 mb-4 text-lg text-gray-700"
@@ -280,6 +297,7 @@ export default function Pinatas({ pinatas, categories, search, category }: Pinat
                 >
                     {pinatas.data.map((pinata) => (
                         <CardPinata
+                            key={pinata.id}
                             pinata={pinata}
                             openModal={openModal}
                             toogleLikePinata={toogleLikePinata}

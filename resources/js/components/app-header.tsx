@@ -80,7 +80,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                 <div className={`mx-auto flex items-center px-4 md:max-w-7xl transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${isScrolled ? 'py-1' : 'py-2'}`}>
                     <div className="w-full flex justify-between">
                         {/* logo */}
-                        <Link href="/dashboard" prefetch className="flex items-center">
+                        <Link href="/" prefetch className="flex items-center">
                             <img
                                 src="/logo.png"
                                 alt="Logo piñatas brillantes"

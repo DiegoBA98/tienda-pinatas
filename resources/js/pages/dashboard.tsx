@@ -128,7 +128,7 @@ export default function HomePage({ pinatasInmediatas, pinatasNoInmediatas }: Hom
                         initial={{ y: -50, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         transition={{ duration: 0.4, delay: 0.3 }}
-                        className="w-52">
+                        className="w-38">
                         <img src="/logo.png" alt="Logo pagina" />
                     </motion.div>
                 </motion.section>

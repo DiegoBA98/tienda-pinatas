@@ -18,7 +18,7 @@ export default function CardPinata({ pinata, openModal, toogleLikePinata }: Card
 
         >
             <div>
-                <div className="w-full h-80 md:h-72 overflow-hidden">
+                <div className="w-full h-96 md:h-80 overflow-hidden">
                     <img
                         src={`/storage/${pinata.imagen}`}
                         alt={pinata.nombre}
