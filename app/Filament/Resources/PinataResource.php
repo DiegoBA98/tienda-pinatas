@@ -46,7 +46,14 @@ class PinataResource extends Resource
                         TagsInput::make('tags')
                             ->required()
                             ->helperText('Ingresar los tags de la piñata separados por comas')
-                            ->separator(','),
+                            ->separator(',')
+                            ->afterStateHydrated(function ($set, $state) {
+                                $tags = is_string($state) ? explode(',', $state) : (array)$state;
+                                $set('tags', $tags);
+                            })
+                            ->dehydrateStateUsing(function ($state) {
+                                return is_array($state) ? $state : explode(',', $state);
+                            }),
                         Forms\Components\Select::make('category_id')
                             ->label('Categoria')
                             ->relationship('category', 'nombre')
