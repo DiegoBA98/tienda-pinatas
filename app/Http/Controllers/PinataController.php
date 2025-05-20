@@ -21,7 +21,7 @@ class PinataController extends Controller
         }
 
         // dd($entregaInmediata);
-        $query = Pinata::query();
+        $query = Pinata::latest();
 
         if ($search) {
             $query->where(function ($q) use ($search) {
