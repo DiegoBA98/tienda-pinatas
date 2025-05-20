@@ -5,6 +5,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <meta name="description" content="Tienda de piñatas en Guadalajara 🎉. Diseños personalizados, temáticas infantiles y pedidos para fiestas. ¡Haz tu celebración inolvidable con nosotros!">
+    <meta name="keywords" content="piñatas Guadalajara, piñatas personalizadas, tienda de piñatas, fiestas infantiles, piñatas temáticas">
+    <meta name="author" content="Tienda de Piñatas GDL">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Tienda de Piñatas en Guadalajara">
+    <meta property="og:description" content="Compra piñatas personalizadas para fiestas en Guadalajara. Envíos y diseños únicos.">
+    <meta property="og:image" content="{{ asset('logo.png') }}">
+    <meta property="og:url" content="https://pinatas.agustinsm.com/">
+    <meta property="og:site_name" content="Tienda de Piñatas GDL">
 
     <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
