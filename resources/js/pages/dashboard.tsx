@@ -313,7 +313,7 @@ export default function HomePage({ pinatasInmediatas, pinatasNoInmediatas }: Hom
                             ¿Por qué elegir nuestras piñatas?
                         </motion.h3>
                         <motion.p
-                            className="text-lg text-gray-700 mx-auto max-w-3xl"
+                            className="text-lg text-gray-700 mx-auto max-w-5xl"
                             initial={{ y: 20, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ duration: 0.5 }}

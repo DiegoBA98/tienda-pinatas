@@ -13,11 +13,11 @@ class DashboardController extends Controller
     public function index()
     {
         $pinatasInmediatas = Pinata::where('entrega_inmediata', 1)
-            ->orderBy('updated_at', 'desc')
+            ->orderBy('created_at', 'DESC')
             ->take(8)
             ->get();
         $pinatasNoInmediatas = Pinata::where('entrega_inmediata', 0)
-            ->orderBy('updated_at', 'desc')
+            ->orderBy('created_at', 'DESC')
             ->take(8)
             ->get();
 

@@ -56,24 +56,6 @@ export function Footer() {
                                     Facebook
                                 </Link>
                             </li>
-                            <li>
-                                <Link
-                                    href="https://instagram.com"
-                                    target="_blank"
-                                    className="text-sm hover:underline"
-                                >
-                                    Instagram
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href="https://twitter.com"
-                                    target="_blank"
-                                    className="text-sm hover:underline"
-                                >
-                                    Twitter
-                                </Link>
-                            </li>
                         </ul>
                     </div> */}
                 </div>

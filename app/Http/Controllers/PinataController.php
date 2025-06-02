@@ -61,4 +61,10 @@ class PinataController extends Controller
             'category' => $categoryId
         ]);
     }
+
+    public function show(Pinata $pinata){
+        return Inertia::render('pinatas/pinata', [
+            'pinata' => $pinata,
+           ]);
+    }
 }

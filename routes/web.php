@@ -27,6 +27,7 @@ Route::get('/mis-favoritos', [DashboardController::class, 'favoritos'])->middlew
 //pinatas
 Route::prefix('pinatas')->group(function () {
     Route::get('/', [PinataController::class, 'index'])->name('show.pinatas');
+    Route::get('/{pinata}', [PinataController::class, 'show'])->name('show.pinata');
 
     Route::post('/favorites', [FavoriteController::class, 'store'])->middleware(['auth'])->name('favorite.store');
 
