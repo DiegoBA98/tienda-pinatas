@@ -68,7 +68,7 @@ class PinataResource extends Resource
                             ->directory('img/pinatas')
                             ->visibility('public')
                             ->optimize('webp')
-                            ->resize(60),
+                            ->resize(70),
                         Forms\Components\TextInput::make('precio')
                             ->prefix('$ ')
                             ->numeric()
