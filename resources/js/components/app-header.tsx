@@ -29,7 +29,7 @@ const mainNavItems: NavItem[] = [
         icon: Users,
     },
     {
-        title: 'Piñatas',
+        title: 'Joyeria',
         href: '/pinatas?page=1',
         icon: PartyPopper,
     },
@@ -82,8 +82,8 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                         {/* logo */}
                         <Link href="/" prefetch className="flex items-center">
                             <img
-                                src="/logo.png"
-                                alt="Logo piñatas brillantes"
+                                src="/logom.png"
+                               // alt="Logo piñatas brillantes"
                                 className={`size-12 lg:size-16 transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${isScrolled ? 'scale-90' : 'scale-100'}`}
                             />
                         </Link>
@@ -133,7 +133,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                     </motion.div>
                                 </TooltipTrigger>
                                 <TooltipContent className='bg-gray-800 text-white rounded-lg p-1' sideOffset={-2}>
-                                    Ver mis piñatas favoritas
+                                    Ver mis favoritos
                                 </TooltipContent >
                                 </Tooltip>
 

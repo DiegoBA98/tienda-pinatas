@@ -11,7 +11,7 @@ interface PinatasProps {
 export default function Pinatas({ pinata }: PinatasProps) {
     const breadcrumbs: BreadcrumbItem[] = [
         {
-            title: 'Piñata',
+            title: 'Joyas',
             href: '/pinata/{pinata}',
         },
     ];

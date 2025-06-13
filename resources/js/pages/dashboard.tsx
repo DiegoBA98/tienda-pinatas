@@ -90,7 +90,7 @@ export default function HomePage({ pinatasInmediatas, pinatasNoInmediatas }: Hom
                         transition={{ duration: 0.4, delay: 0.2 }}
                     >
                         <motion.img
-                            src="/img/papel-picado.png"
+                            src="/img/anillo.png"
                             alt="Imagen de confetti"
                             className="size-12 hidden md:block"
                             animate={{
@@ -105,10 +105,10 @@ export default function HomePage({ pinatasInmediatas, pinatasNoInmediatas }: Hom
                             }}
                         />
                         <h1 className="text-4xl md:text-5xl font-bold leading-tight max-w-3xl bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-transparent bg-clip-text">
-                            ¡Haz que tu fiesta brille con nuestras piñatas únicas!
+                            ¡Diego!
                         </h1>
                         <motion.img
-                            src="/img/papel-picado.png"
+                            src="/img/anillo.png"
                             alt="Imagen de confetti"
                             className="size-12 hidden md:block"
                             animate={{
@@ -128,7 +128,7 @@ export default function HomePage({ pinatasInmediatas, pinatasNoInmediatas }: Hom
                         initial={{ y: -50, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         transition={{ duration: 0.4, delay: 0.3 }}
-                        className="w-38">
+                        className="w-80">
                         <img src="/logo.png" alt="Logo pagina" />
                     </motion.div>
                 </motion.section>
@@ -147,7 +147,7 @@ export default function HomePage({ pinatasInmediatas, pinatasNoInmediatas }: Hom
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ duration: 0.5 }}
                         >
-                            Piñatas de Entrega Inmediata
+                            Joyeria de Entrega Inmediata
                         </motion.h2>
 
                         <motion.p
@@ -156,7 +156,7 @@ export default function HomePage({ pinatasInmediatas, pinatasNoInmediatas }: Hom
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ duration: 0.5 }}
                         >
-                            ¿Tienes una fiesta de última hora? ¡Aquí tienes algunas opciones listas para entregar hoy mismo!
+                            ¡Aquí tienes algunas opciones listas para entregar hoy mismo!
                         </motion.p>
 
                         {/* Slider placeholder para Piñatas de Entrega Inmediata */}
@@ -208,7 +208,7 @@ export default function HomePage({ pinatasInmediatas, pinatasNoInmediatas }: Hom
                         animate={{ rotate: [0, 1, -1, 0] }}
                         transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
                     >
-                        <Link href="/pinatas?entrega_inmediata=1&page=1" className=" hover:cursor-pointer bg-pink-600 text-white font-bold rounded-lg px-7 py-3 hover:bg-black/80 transition">Ver mas piñatas de entrega inmediata</Link>
+                        <Link href="/pinatas?entrega_inmediata=1&page=1" className=" hover:cursor-pointer bg-pink-600 text-white font-bold rounded-lg px-7 py-3 hover:bg-black/80 transition">Ver mas productos de entrega inmediata</Link>
                     </motion.div>
                 </motion.section>
 
@@ -226,7 +226,7 @@ export default function HomePage({ pinatasInmediatas, pinatasNoInmediatas }: Hom
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ duration: 0.5 }}
                         >
-                            Variedad de piñatas con tiempo de entrega
+                            Variedad de productos con tiempo de entrega
                         </motion.h2>
 
                         <motion.p
@@ -235,7 +235,7 @@ export default function HomePage({ pinatasInmediatas, pinatasNoInmediatas }: Hom
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ duration: 0.5 }}
                         >
-                            En esta seccion encontraras variedad de piñatas que necesitan tiempo de elaboración.
+                            En esta seccion encontraras variedad de productos que necesitan tiempo de abastecimiento.
                         </motion.p>
 
                         {/* Slider placeholder para Piñatas que no son de Entrega Inmediata */}
@@ -291,7 +291,7 @@ export default function HomePage({ pinatasInmediatas, pinatasNoInmediatas }: Hom
                             href="/pinatas?entrega_inmediata=0&page=1"
                             className="hover:cursor-pointer bg-pink-600 text-white font-bold rounded-lg px-6 py-3 hover:bg-black/80 transition"
                         >
-                            Ver más modelos de piñatas
+                            Ver más productos
                         </Link>
                     </motion.div>
                 </motion.section>
@@ -310,7 +310,7 @@ export default function HomePage({ pinatasInmediatas, pinatasNoInmediatas }: Hom
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ duration: 0.5 }}
                         >
-                            ¿Por qué elegir nuestras piñatas?
+                            ¿Por qué elegir nuestra joyeria?
                         </motion.h3>
                         <motion.p
                             className="text-lg text-gray-700 mx-auto max-w-5xl"

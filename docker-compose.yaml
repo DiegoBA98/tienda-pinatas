@@ -2,13 +2,9 @@ services:
   db:
     image: mysql:latest
     environment:
-      MYSQL_ROOT_PASSWORD: prueba
+      MYSQL_ROOT_PASSWORD: root
     ports:
       - "3306:3306"
     volumes:
       - ./mysql:/var/lib/mysql
-  # mailhog:
-  #   image: mailhog/mailhog
-  #   ports:
-  #     - "1025:1025"
-  #     - "8025:8025"
+  

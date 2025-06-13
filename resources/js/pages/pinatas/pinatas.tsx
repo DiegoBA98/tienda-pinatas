@@ -173,7 +173,7 @@ export default function Pinatas({ pinatas, categories, search, category }: Pinat
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, ease: "easeInOut" }}
                 >
-                    Piñatas
+                    Joyeria
                 </motion.h1>
                 {/* <motion.p
                     className="text-center text-lg text-gray-700 mb-4"
